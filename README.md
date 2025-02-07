@@ -1,0 +1,2 @@
+# gs
+GENERICSCRIPT
