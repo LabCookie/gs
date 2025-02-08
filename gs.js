@@ -1,15 +1,11 @@
-// Note to self or anyone forking this disgusting project: for every function, use this:
-// if (!define_mode) {
-//      // Do anything here
-//    } else {define_mode_log.push(`YOUR_COMMAND ${quotify(args.join(" "))}`)}
-
-
+// split_p() (p for plus) is a function that does similar to the default split()
+// but has support for spaces in a single argument by surronding the argument
+// with double quotes
 function split_p(text,delimiter=" ") {
   let i = 0;
   let in_quotes = false;
   let str = "";
   let arr = [];
-
   while (i < text.length) {
       if ((text[i] != "\"" && text[i] != "\\") || text[i-1] == "\\") {str += text[i];}
       if (text[i] == "\"") {if (text[i-1] != "\\") {in_quotes = !in_quotes}}
@@ -20,11 +16,21 @@ function split_p(text,delimiter=" ") {
       i++;
   }
   arr.push(str.trim(delimiter));
-
   return arr;
 }
-function quotify(text) {
-  if (text.includes(" ")) {return `"${text}"`}
+function quote_backslash(text) {
+  let output;
+  if (text.includes("\"")) {output = text.replace(/"/g, "\\\"")}
+  if (text.includes(" ")) {output = `"${text}"`}
+  return output
+}
+
+function gs_command(command,args) {
+  if (!define_mode || command == "END") {generic_script[command](args)}
+  else {
+    if (command != "DEF") {define_mode_log.push(`${command} ${args.map(arg => quote_backslash(arg)).join(" ")}`)}
+    else {console.log("YOU CANNOT PERFORM DEF COMMAND WHILE IN DEFINE MODE")}
+  }
 }
 
 let define_mode = false;
@@ -32,20 +38,17 @@ let define_mode_log = [];
 let def_name = "";
 
 let gs_variables = {
-  version: "GSv1"
+  version: "GSv2"
 };
+// If arg starts with % its a reference to a variable
 let generic_script = {
   OUT: function(args) {
-    if (!define_mode) {
-      if (args[0][0] == "%") {console.log(gs_variables[args[0].slice(1)])}
-      else {console.log(args[0])}
-    } else {define_mode_log.push(`OUT ${quotify(args.join(" "))}`)}
+    if (args[0][0] == "%") {console.log(gs_variables[args[0].slice(1)])}
+    else {console.log(args[0])}
   },
   VAR: function(args) {
-    if (!define_mode) {
-      if (args[1][0] == "%") {gs_variables[args[0]] = gs_variables[args[1].slice(1)]}
-      else {gs_variables[args[0]] = args[1]}
-    } else {define_mode_log.push(`VAR ${quotify(args.join(" "))}`)}
+    if (args[1][0] == "%") {gs_variables[args[0]] = gs_variables[args[1].slice(1)]}
+    else {gs_variables[args[0]] = args[1]}
   },
   DEF: function(args) {
     def_name = args[0];
@@ -56,6 +59,15 @@ let generic_script = {
       define_mode = false;
       generic_script[def_name] = function() {interpret_GS(define_mode_log.join("\n"))}
     }
+  },
+  EP: function(args) {
+    let reader = "";
+    args.forEach((item) => {
+      console.log(item)
+      if (item[0] == "%") {reader += gs_variables[item.splice(1)]}
+      else {reader += item}
+    })
+    console.log(reader);
   }
 };
 
@@ -63,26 +75,18 @@ function interpret_GS(text) {
   let lines = text.split("\n");
 
   lines.forEach((line) => {
-    let tokens = split_p(line);
-    let command = tokens[0];
-    tokens.splice(0,1);
-    generic_script[command](tokens)
-    
+    if (line != "") {
+      let tokens = split_p(line);
+      let command = tokens[0];
+      
+      tokens.splice(0,1);
+      
+      gs_command(command,tokens);
+    }
   });
 }
 
 
 // And to test the waters...
-if (false) {
-  interpret_GS(`VAR I false
-  DEF IS_LABCOOKIE_HOMOSEXUAL
-  VAR I true
-  END DEF
-  DEF IS_LABCOOKIE_SMART
-  VAR I false
-  END DEF
-  IS_LABCOOKIE_HOMOSEXUAL
-  OUT %I
-  IS_LABCOOKIE_SMART
-  OUT %I`);
-}
+interpret_GS(`VAR I 10
+EP "I: " %I`);
