@@ -1,8 +1,8 @@
 # GenericScript 
-## GSv1
+## GSv2
 GenericScript is a fun esoteric programming language inspired by the C64 BASIC language!<3
 
-There are only 4 commands as of now, but more will be added in the future
+There are only 5 commands as of now, but more will be added in the future
 Due to the javascript curse there is no future for a file management system
 
 **OUT** \<Text\>: Prints out text. put the % symbol before the text to reference a variable
@@ -42,3 +42,10 @@ SET_I_TO_10
 ```
 
 **END** \<CMD\>: What do you think it does?
+
+**EP** \[Args\]: Concatenates all args and prints them out
+```gs
+VAR I 10
+EP "I: " %I
+```
+-# This is a broken command, it will be fixed next update
