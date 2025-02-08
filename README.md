@@ -1,7 +1,12 @@
 # GenericScript 
-## GSv2
+## GSv3
 GenericScript is a fun esoteric programming language inspired by the C64 BASIC language!<3
 
+## CHANGELOG
+- REMOVE EP
+- DEF CONCAT
+
+## COMMANDS
 There are only 5 commands as of now, but more will be added in the future
 Due to the javascript curse there is no future for a file management system
 
@@ -43,9 +48,10 @@ SET_I_TO_10
 
 **END** \<CMD\>: What do you think it does?
 
-**EP** \[Args\]: Concatenates all args and prints them out
+**CONCAT** \<VAR\> \<STR/VAR\> []: Concatenates a variable with either a string or another variable. The third argument determines how it would be concatenated,
+\-S for a space and \-\<CHAR\> for any character, though optional and if not available concatenate without any form of seperation
 ```gs
-VAR I 10
-EP "I: " %I
+VAR I "Hello,"
+CONCAT I %VER -S
+OUT %I
 ```
--# This is a broken command, it will be fixed next update
