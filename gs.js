@@ -1,6 +1,7 @@
 // split_p() (p for plus) is a function that does similar to the default split()
 // but has support for spaces in a single argument by surronding the argument
 // with double quotes
+let ver = "GSv3";
 function split_p(text,delimiter=" ") {
   let i = 0;
   let in_quotes = false;
@@ -38,7 +39,8 @@ let define_mode_log = [];
 let def_name = "";
 
 let gs_variables = {
-  version: "GSv2"
+  version: ver,
+  VER: ver
 };
 // If arg starts with % its a reference to a variable
 let generic_script = {
@@ -60,14 +62,16 @@ let generic_script = {
       generic_script[def_name] = function() {interpret_GS(define_mode_log.join("\n"))}
     }
   },
-  EP: function(args) {
-    let reader = "";
-    args.forEach((item) => {
-      console.log(item)
-      if (item[0] == "%") {reader += gs_variables[item.splice(1)]}
-      else {reader += item}
-    })
-    console.log(reader);
+  CONCAT: function(args) {
+    let suffix = ""
+    if (args.length > 2) {
+      if (args[2] == "-S") {suffix = " "}
+      else if (args[2][0] == "-") {suffix = args[2].slice(1)}
+    }
+    if (args[1][0] == "%") {suffix += gs_variables[args[1].slice(1)]}
+    else {suffix += args[1]}
+    
+    gs_variables[args[0]] += suffix
   }
 };
 
@@ -88,5 +92,6 @@ function interpret_GS(text) {
 
 
 // And to test the waters...
-interpret_GS(`VAR I 10
-EP "I: " %I`);
+interpret_GS(`VAR I "Hello,"
+CONCAT I %VER -S
+OUT %I`);
