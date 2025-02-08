@@ -3,8 +3,9 @@
 GenericScript is a fun esoteric programming language inspired by the C64 BASIC language!<3
 
 ## CHANGELOG
-- REMOVE EP
-- DEF CONCAT
+- removed EP
+- added CONCAT
+- added new variable VER to determine version (version can still be used until GSv6) 
 
 ## COMMANDS
 There are only 5 commands as of now, but more will be added in the future
