@@ -72,6 +72,17 @@ let generic_script = {
     else {suffix += args[1]}
     
     gs_variables[args[0]] += suffix
+  },
+  IF_EQ: function(args) {
+    let condition = gs_variables[args[0] == gs_variables[args[1]];
+    if (args.length > 3) {
+      if (args[3] == "~") {
+        condition = !condition;
+      }
+    }
+    if (condition) {
+      gs_command(args[2],[]);
+    }
   }
 };
 
@@ -92,6 +103,13 @@ function interpret_GS(text) {
 
 
 // And to test the waters...
-interpret_GS(`VAR I "Hello,"
-CONCAT I %VER -S
-OUT %I`);
+interpret_GS(`VAR TEST 5
+VAR EXPECTED 10
+DEF IT_IS_TEN
+OUT "It is 10!"
+END DEF
+DEF NOT_TEN
+OUT "It is not 10."
+END DEF
+IF_EQ TEST EXPECTED IT_IS_TEN
+IF_EQ TEST EXPECTED NOT_TEN ~`);
