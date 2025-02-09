@@ -1,7 +1,7 @@
 // split_p() (p for plus) is a function that does similar to the default split()
 // but has support for spaces in a single argument by surronding the argument
 // with double quotes
-let ver = "GSv3";
+let ver = "GSv4";
 function split_p(text,delimiter=" ") {
   let i = 0;
   let in_quotes = false;
