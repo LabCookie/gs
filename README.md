@@ -1,9 +1,9 @@
 # GenericScript 
-## GSv4
+## GSv4s
 GenericScript is a fun esoteric programming language inspired by the C64 BASIC language!<3
 
 ## CHANGELOG
-- added IF_EQ
+- fixed IF_EQ
 
 ## COMMANDS
 There are only 6 commands as of now, but more will be added in the future
@@ -55,7 +55,6 @@ CONCAT I %VER -S
 OUT %I
 ```
 
-IF_EQ HAS NOT BEEN TESTED AND SHOULD NOT BE USED UNLESS CONFIRMED TO WORK
 **IF_EQ** \<VAR\> \<VAR\> \<FUNC\> \[~\]: This command compares two variables and sees if they're equal to eachother. If yes it will call a function (usually user-defined) with no arguments. To make it only work if they are NOT equal to eachother just simply add ~ at the end.
 ```gs
 VAR TEST 5
@@ -69,4 +68,3 @@ END DEF
 IF_EQ TEST EXPECTED IT_IS_TEN
 IF_EQ TEST EXPECTED NOT_TEN ~
 ```
-Please note i've performed this update using my phone and it is not tested. Please test before you use it, thanks!<3
