@@ -1,7 +1,7 @@
 // split_p() (p for plus) is a function that does similar to the default split()
 // but has support for spaces in a single argument by surronding the argument
 // with double quotes
-let ver = "GSv4";
+let ver = "GSv4s";
 function split_p(text,delimiter=" ") {
   let i = 0;
   let in_quotes = false;
@@ -74,7 +74,7 @@ let generic_script = {
     gs_variables[args[0]] += suffix
   },
   IF_EQ: function(args) {
-    let condition = gs_variables[args[0] == gs_variables[args[1]];
+    let condition = gs_variables[args[0]] == gs_variables[args[1]];
     if (args.length > 3) {
       if (args[3] == "~") {
         condition = !condition;
