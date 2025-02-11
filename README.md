@@ -70,9 +70,6 @@ END DEF
 IF_EQ TEST EXPECTED IT_IS_TEN
 IF_EQ TEST EXPECTED NOT_TEN ~
 ```
-
-THIS COMMAND IS BY NO MEANS STABLE AND IS RECOMMENDED TO REFRAIN FROM USING UNTIL FIXED\n
-
 **IF_THEN** \<VAR\> \<VAR\> \<VAL IF TRUE\> \<VAL IF FALSE\> \[<|>|<=|>=|STRICT\|~] \[~\]: This return command compares two variables and sees if they meet a condition then returns one of the values if true or false.
 ```gs
 VAR TEST 5
@@ -80,4 +77,4 @@ VAR TEST2 5
 VAR CONDITION #IF_THEN:TEST,TEST2,false,true
 OUT %CONDITION
 ```
-
+THIS COMMAND IS BY NO MEANS STABLE AND IS RECOMMENDED TO REFRAIN FROM USING UNTIL FIXED
