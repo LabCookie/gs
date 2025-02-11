@@ -18,7 +18,7 @@ EXAMPLES:
 OUT "Hello, World!"
 ```
 ```gs
-OUT %version
+OUT %VER
 ```
 
 **VAR** \<Var\> \<Val\>: Assigns a variable to a value, or to another variable's value if "Val" arg starts with %
