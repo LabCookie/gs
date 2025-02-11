@@ -1,9 +1,11 @@
 # GenericScript 
-## GSv4s
+## GSv5pre-1
 GenericScript is a fun esoteric programming language inspired by the C64 BASIC language!<3
 
 ## CHANGELOG
-- fixed IF_EQ
+- NEW **RETURN COMMAND** ENVIRONMENT e.g: `VAR I #COMMAND,ARG1,ARG2`
+- NEW **IF_THEN** RETURN COMMAND
+- NEW STRICT KEYWORD FOR IF_EQ and IF_THEN THAT MAKES EQUAL CONDITIONS CASE SENSITIVE
 
 ## COMMANDS
 There are only 6 commands as of now, but more will be added in the future
@@ -55,7 +57,7 @@ CONCAT I %VER -S
 OUT %I
 ```
 
-**IF_EQ** \<VAR\> \<VAR\> \<FUNC\> \[~\]: This command compares two variables and sees if they're equal to eachother. If yes it will call a function (usually user-defined) with no arguments. To make it only work if they are NOT equal to eachother just simply add ~ at the end.
+**IF_EQ** \<VAR\> \<VAR\> \<FUNC\> \[STRICT|~\] \[~\]: This command compares two variables and sees if they're equal to eachother. If yes it will call a function (usually user-defined) with no arguments. To make it only work if they are NOT equal to eachother just simply add ~ at the end.
 ```gs
 VAR TEST 5
 VAR EXPECTED 10
@@ -68,3 +70,13 @@ END DEF
 IF_EQ TEST EXPECTED IT_IS_TEN
 IF_EQ TEST EXPECTED NOT_TEN ~
 ```
+
+THIS COMMAND IS BY NO MEANS STABLE AND IS RECOMMENDED TO REFRAIN FROM USING UNTIL FIXED
+**IF_THEN** \<VAR\> \<VAR\> \<VAL IF TRUE\> \<VAL IF FALSE\> \[<|>|<=|>=|STRICT\|~] \[~\]: This return command compares two variables and sees if they meet a condition then returns one of the values if true or false.
+```gs
+VAR TEST 5
+VAR TEST2 5
+VAR CONDITION #IF_THEN:TEST,TEST2,false,true
+OUT %CONDITION
+```
+
